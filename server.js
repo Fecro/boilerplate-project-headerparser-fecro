@@ -4,6 +4,7 @@
 // init project
 require('dotenv').config();
 var express = require('express');
+var requestIp = require('request-ip');
 var app = express();
 
 // enable CORS (https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)
@@ -28,9 +29,9 @@ app.get("/api/hello", function (req, res) {
 app.get("/api/whoami", (req, res) => {
   let software = req.headers['user-agent'];
   let language = req.headers['accept-language'];
-  let ipaddress = req.ip;
+  let ipaddress = requestIp.getClientIp(req);
   res.send({
-    ip: ipaddress,
+    ipaddress: ipaddress,
     language: language,
     software: software
   });
